@@ -14,7 +14,7 @@ trait TypedActor[A] extends Actor {
 
   private def liftToPF[X <: Y, W, Y](f: Function[X, W]): PartialFunction[Y, W] =
     new PartialFunction[Y, W] {
-      override def isDefinedAt(x: Y): Boolean = x.isInstanceOf[X]
+      override def isDefinedAt(x: Y): Boolean = x.isInstanceOf[X @unchecked]
       override def apply(v1: Y): W = f(v1.asInstanceOf[X])
     }
 
